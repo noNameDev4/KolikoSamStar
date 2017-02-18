@@ -8,12 +8,85 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.dr.kolikosamstar.MainActivity">
+    tools:context="com.dr.kolikosamstar.MainActivity"
+    android:textAlignment="center">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Unesite datum rođenja:"
         android:textSize="20sp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textview_question" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_days"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/textview_question"
+        android:layout_alignLeft="@+id/textview_question"
+        android:layout_alignStart="@+id/textview_question"
+        android:textAlignment="center"
+        android:entries="@array/days_array"
+        android:layout_alignRight="@+id/textview_question"
+        android:layout_alignEnd="@+id/textview_question" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:entries="@array/months_array"
+        android:id="@+id/spinner_months"
+        android:layout_below="@+id/spinner_days"
+        android:layout_alignLeft="@+id/textview_question"
+        android:layout_alignStart="@+id/textview_question"
+        android:textAlignment="center"
+        android:layout_alignRight="@+id/spinner_days"
+        android:layout_alignEnd="@+id/spinner_days" />
+
+    <TextView
+        android:text="Dan:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinner_days"
+        android:layout_toLeftOf="@+id/spinner_days"
+        android:id="@+id/textView_day"
+        android:layout_alignLeft="@+id/textview_month"
+        android:layout_alignStart="@+id/textview_month" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:layout_below="@+id/spinner_months"
+        android:id="@+id/edittext_year"
+        android:layout_marginTop="8dp"
+        android:textColorLink="?attr/colorControlHighlight"
+        android:textSize="18sp"
+        android:hint="Upišite godinu"
+        android:textAlignment="center"
+        android:layout_alignEnd="@+id/spinner_months"
+        android:layout_toRightOf="@+id/textview_month"
+        android:layout_toEndOf="@+id/textview_month" />
+
+    <TextView
+        android:text="Godina:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_year"
+        android:layout_alignBottom="@+id/edittext_year"
+        android:layout_toLeftOf="@+id/edittext_year"
+        android:layout_alignLeft="@+id/textview_month"
+        android:layout_alignStart="@+id/textview_month" />
+
+    <TextView
+        android:text="Mjesec:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_month"
+        android:layout_above="@+id/edittext_year"
+        android:layout_toLeftOf="@+id/spinner_months" />
+
 </RelativeLayout>
