@@ -89,4 +89,23 @@
         android:layout_above="@+id/edittext_year"
         android:layout_toLeftOf="@+id/spinner_months" />
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textview_year"
+        android:layout_alignStart="@+id/textview_year"
+        android:id="@+id/textViewResult"
+        android:layout_alignParentBottom="true" />
+
+    <Button
+        android:text="Izračunaj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edittext_year"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:id="@+id/buttonAsk"
+        android:onClick="calculateAge" />
+
 </RelativeLayout>
