@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
        // String[] size_values = getResources().getStringArray(R.array.size_values);
        // int size = Integer.valueOf(size_values[spinner_pos]);
         Spinner spinnerMonths = (Spinner) findViewById(R.id.spinner_months);
-        int spinner_pos = spinnerDay.getSelectedItemPosition();
+        int spinner_pos1 = spinnerMonths.getSelectedItemPosition();
 
-        answer.setText(year + spinner_pos + );
+        answer.setText(year + spinner_pos + spinner_pos1);
 
     }
 }
