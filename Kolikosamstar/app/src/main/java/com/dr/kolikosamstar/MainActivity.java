@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinnerMonths = (Spinner) findViewById(R.id.spinner_months);
         int spinner_pos1 = spinnerMonths.getSelectedItemPosition();
 
-        answer.setText(year + spinner_pos + spinner_pos1);
+        answer.setText("Rodjeni ste " + (spinner_pos+1) + ". " + (spinner_pos1+1) + ". " + year + ".");
 
     }
 }
