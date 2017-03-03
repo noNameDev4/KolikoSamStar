@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         long dminutes = diff / (60 * 1000);
         long dhours = diff / (60 * 60 * 1000);
         long ddays = diff / (24 * 60 * 60 * 1000);
+        long dmonths = diff / (30L * 24 * 60 * 60 * 1000);
 
         Date date1 = calendar1.getTime();
         Date date2 = calendar2.getTime();
@@ -67,7 +68,14 @@ public class MainActivity extends AppCompatActivity {
         Format frmt = new SimpleDateFormat("yy MM dd HH:mm:ss");
 
         long star[] = differenceBetweenDates(date1, date2);
-        answer.setText("Star si " + star[2] + " godina, " +  star[1] + " mjeseci i " + star[0] + " dana.");//or if you want system.out.println(...);
+        SimpleDateFormat ft =
+                new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+        SimpleDateFormat ft1 =
+                new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+
+
+        answer.setText(/*ft.format(date1) +ft1.format(date2)+ */"Star si " + star[2] + " godina, " +  star[1] + " mjeseci i " + star[0] + " dana."+
+        " Mjeseci: " + dmonths +" Dana: " +ddays +" Sati: " +dhours +" Minuta: " +dminutes +" Sekundi: " + dsecs );//or if you want system.out.println(...);
 
 
        // answer.setText("Your Day Difference="+ddays);
