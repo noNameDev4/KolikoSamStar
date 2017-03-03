@@ -4,11 +4,15 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         EditText editText = (EditText) findViewById(R.id.edittext_year);
         String year = editText.getText().toString();
+        Integer yearInt = Integer.parseInt(year);
         TextView answer= (TextView) findViewById(R.id.textViewResult);
 
         Spinner spinnerDay = (Spinner) findViewById(R.id.spinner_days);
@@ -40,7 +45,67 @@ public class MainActivity extends AppCompatActivity {
         Spinner spinnerMonths = (Spinner) findViewById(R.id.spinner_months);
         int spinner_pos1 = spinnerMonths.getSelectedItemPosition();
 
-        answer.setText("Rodjeni ste " + (spinner_pos+1) + ". " + (spinner_pos1+1) + ". " + year + ".");
+        //answer.setText("Rodjeni ste " + (spinner_pos+1) + ". " + (spinner_pos1+1) + ". " + year + ".");
 
+        Calendar calendar1 = Calendar.getInstance();
+        Calendar calendar2 = Calendar.getInstance();
+        calendar1.set(yearInt, spinner_pos1,spinner_pos+1);
+        calendar2.getTime();
+        long milsecs1= calendar1.getTimeInMillis();
+        long milsecs2 = calendar2.getTimeInMillis();
+        long diff = milsecs2 - milsecs1;
+        long dsecs = diff / 1000;
+        long dminutes = diff / (60 * 1000);
+        long dhours = diff / (60 * 60 * 1000);
+        long ddays = diff / (24 * 60 * 60 * 1000);
+
+        Date date1 = calendar1.getTime();
+        Date date2 = calendar2.getTime();
+        long diff1 = date1.getTime() - date2.getTime(); //this is going to give you the difference in milliseconds
+
+        Date result = new Date(diff1);
+        Format frmt = new SimpleDateFormat("yy MM dd HH:mm:ss");
+
+        long star[] = differenceBetweenDates(date1, date2);
+        answer.setText("Star si " + star[2] + " godina, " +  star[1] + " mjeseci i " + star[0] + " dana.");//or if you want system.out.println(...);
+
+
+       // answer.setText("Your Day Difference="+ddays);
+
+    }
+
+    public static long[] differenceBetweenDates(Date fromDate, Date toDate) {
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(fromDate);
+        long years = 0;
+        long months = 0;
+        long days = 0;
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(toDate);
+        Calendar tmpdate = Calendar.getInstance();
+        tmpdate.setTime(startDate.getTime());
+
+        tmpdate.add(Calendar.YEAR, 1);
+        while (tmpdate.compareTo(endDate) <= 0) {
+            startDate.add(Calendar.YEAR, 1);
+            tmpdate.add(Calendar.YEAR, 1);
+            years++;
+        }
+        tmpdate.setTime(startDate.getTime());
+        tmpdate.add(Calendar.MONTH, 1);
+        while (tmpdate.compareTo(endDate) <= 0) {
+            startDate.add(Calendar.MONTH, 1);
+            tmpdate.add(Calendar.MONTH, 1);
+            months++;
+        }
+        tmpdate.setTime(startDate.getTime());
+        tmpdate.add(Calendar.DATE, 1);
+        while (tmpdate.compareTo(endDate) <= 0) {
+            startDate.add(Calendar.DATE, 1);
+            tmpdate.add(Calendar.DATE, 1);
+            days++;
+        }
+
+        return new long[]{days, months, years};
     }
 }
