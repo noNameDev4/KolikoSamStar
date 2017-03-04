@@ -89,15 +89,6 @@
         android:layout_above="@+id/edittext_year"
         android:layout_toLeftOf="@+id/spinner_months" />
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textview_year"
-        android:layout_alignStart="@+id/textview_year"
-        android:id="@+id/textViewResult"
-        android:layout_alignParentBottom="true" />
-
     <Button
         android:text="Izračunaj"
         android:layout_width="wrap_content"
@@ -107,5 +98,72 @@
         android:layout_marginTop="31dp"
         android:id="@+id/buttonAsk"
         android:onClick="calculateAge" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonAsk"
+        android:layout_marginTop="31dp"
+        android:id="@+id/answerText"
+        android:layout_alignLeft="@+id/textview_year"
+        android:layout_alignStart="@+id/textview_year"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/daysText"
+        android:layout_alignBaseline="@+id/monthsText"
+        android:layout_alignBottom="@+id/monthsText"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/minutesText"
+        android:layout_toLeftOf="@+id/hoursText"
+        android:layout_toStartOf="@+id/hoursText"
+        android:id="@+id/secondsText"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hoursText"
+        android:layout_alignBaseline="@+id/daysText"
+        android:layout_alignBottom="@+id/daysText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/monthsText"
+        android:textAlignment="center"
+        android:layout_above="@+id/secondsText"
+        android:layout_alignLeft="@+id/answerText"
+        android:layout_alignStart="@+id/answerText"
+        android:layout_marginBottom="51dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/minutesText"
+        android:textAlignment="center"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/buttonAsk"
+        android:layout_toStartOf="@+id/buttonAsk" />
 
 </RelativeLayout>

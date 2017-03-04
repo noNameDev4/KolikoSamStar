@@ -33,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edittext_year);
         String year = editText.getText().toString();
         Integer yearInt = Integer.parseInt(year);
-        TextView answer= (TextView) findViewById(R.id.textViewResult);
+        TextView answer= (TextView) findViewById(R.id.answerText);
+        TextView answerMonths= (TextView) findViewById(R.id.monthsText);
+        TextView answerDays= (TextView) findViewById(R.id.daysText);
+        TextView answerHours= (TextView) findViewById(R.id.hoursText);
+        TextView answerMinutes= (TextView) findViewById(R.id.minutesText);
+        TextView answerSeconds= (TextView) findViewById(R.id.secondsText);
 
         Spinner spinnerDay = (Spinner) findViewById(R.id.spinner_days);
        // String day = spinner.getSelectedItem().(); // Small, Medium, Large
@@ -74,9 +79,13 @@ public class MainActivity extends AppCompatActivity {
                 new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
 
 
-        answer.setText(/*ft.format(date1) +ft1.format(date2)+ */"Star si " + star[2] + " godina, " +  star[1] + " mjeseci i " + star[0] + " dana."+
-        " Mjeseci: " + dmonths +" Dana: " +ddays +" Sati: " +dhours +" Minuta: " +dminutes +" Sekundi: " + dsecs );//or if you want system.out.println(...);
+        answer.setText(/*ft.format(date1) +ft1.format(date2)+ */"Star si " + star[2] + " godina, " +  star[1] + " mjeseci i " + star[0] + " dana.");
 
+        answerMonths.setText("Mjeseci:\n" + dmonths);
+        answerDays.setText("Dana:\n" +ddays);
+        answerHours.setText("Sati:\n" +dhours);
+        answerMinutes.setText("Minuta:\n" +dminutes);
+        answerSeconds.setText("Sekundi:\n" + dsecs);
 
        // answer.setText("Your Day Difference="+ddays);
 
