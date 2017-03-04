@@ -13,20 +13,17 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private static Timer timer;
-    private static int f = 0;
+    private static long f = 0;
 
     final Runnable r = new Runnable() {
         public void run() {
             TextView myTextView = (TextView) findViewById(R.id.secondsText);
-            myTextView.setText("timer:" + f++);
+            myTextView.setText("Sekundi:\n" + f--);
             myTextView.postDelayed(this, 1000);
         }
     };
@@ -36,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView myTextView = (TextView) findViewById(R.id.secondsText);
-        myTextView.postDelayed(r, 1000);
+       // TextView myTextView = (TextView) findViewById(R.id.secondsText);
+       // myTextView.postDelayed(r, 1000);
     }
 
     /** Called when the user clicks the Izracunaj button */
@@ -72,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar calendar1 = Calendar.getInstance();
         Calendar calendar2 = Calendar.getInstance();
-        calendar1.set(yearInt, spinner_pos1,spinner_pos+1);
+        calendar1.set(yearInt, spinner_pos1,spinner_pos+1, 0, 0, 0);
         calendar2.getTime();
         long milsecs1= calendar1.getTimeInMillis();
         long milsecs2 = calendar2.getTimeInMillis();
@@ -104,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
         answerHours.setText("Sati:\n" +dhours);
         answerMinutes.setText("Minuta:\n" +dminutes);
         answerSeconds.setText("Sekundi:\n" + dsecs);
+
+        f = dsecs;
+        TextView myTextView = (TextView) findViewById(R.id.secondsText);
+        myTextView.removeCallbacks(r);
+        myTextView.postDelayed(r, 1000);
     }
 
     public static long[] differenceBetweenDates(Date fromDate, Date toDate) {
