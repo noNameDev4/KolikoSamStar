@@ -13,6 +13,10 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -87,8 +91,13 @@ public class MainActivity extends AppCompatActivity {
         answerMinutes.setText("Minuta:\n" +dminutes);
         answerSeconds.setText("Sekundi:\n" + dsecs);
 
-       // answer.setText("Your Day Difference="+ddays);
 
+
+        TimerTask tasknew = new TimerScheduleFixedRateDelay(this);
+        Timer timer = new Timer();
+
+        // scheduling the task at fixed rate delay
+        timer.scheduleAtFixedRate(tasknew,500,1000);
     }
 
     public static long[] differenceBetweenDates(Date fromDate, Date toDate) {
@@ -124,5 +133,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return new long[]{days, months, years};
+    }
+
+
+    public TextView getField() {
+
+        return ( (TextView) findViewById(R.id.secondsText));
+    }
+}
+
+class TimerScheduleFixedRateDelay extends TimerTask {
+    static int i = 2;
+    static MainActivity ma;
+    public TimerScheduleFixedRateDelay(MainActivity mainActivity) {
+        ma = mainActivity;
+    }
+
+    public void run() {
+        ma.runOnUiThread(new Runnable() {
+
+        @Override
+        public void run() {
+            i++;
+            ma.getField().setText("timer:\n"+i);
+            };
+        });
     }
 }
