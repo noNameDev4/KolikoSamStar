@@ -20,10 +20,24 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static Timer timer;
+    private static int f = 0;
+
+    final Runnable r = new Runnable() {
+        public void run() {
+            TextView myTextView = (TextView) findViewById(R.id.secondsText);
+            myTextView.setText("timer:" + f++);
+            myTextView.postDelayed(this, 1000);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView myTextView = (TextView) findViewById(R.id.secondsText);
+        myTextView.postDelayed(r, 1000);
     }
 
     /** Called when the user clicks the Izracunaj button */
@@ -90,14 +104,6 @@ public class MainActivity extends AppCompatActivity {
         answerHours.setText("Sati:\n" +dhours);
         answerMinutes.setText("Minuta:\n" +dminutes);
         answerSeconds.setText("Sekundi:\n" + dsecs);
-
-
-
-        TimerTask tasknew = new TimerScheduleFixedRateDelay(this);
-        Timer timer = new Timer();
-
-        // scheduling the task at fixed rate delay
-        timer.scheduleAtFixedRate(tasknew,500,1000);
     }
 
     public static long[] differenceBetweenDates(Date fromDate, Date toDate) {
@@ -133,30 +139,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return new long[]{days, months, years};
-    }
-
-
-    public TextView getField() {
-
-        return ( (TextView) findViewById(R.id.secondsText));
-    }
-}
-
-class TimerScheduleFixedRateDelay extends TimerTask {
-    static int i = 2;
-    static MainActivity ma;
-    public TimerScheduleFixedRateDelay(MainActivity mainActivity) {
-        ma = mainActivity;
-    }
-
-    public void run() {
-        ma.runOnUiThread(new Runnable() {
-
-        @Override
-        public void run() {
-            i++;
-            ma.getField().setText("timer:\n"+i);
-            };
-        });
     }
 }
