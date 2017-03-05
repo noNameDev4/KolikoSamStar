@@ -18,13 +18,25 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static long f = 0;
+    private static float f = 0;
+    private static long g = 0;
 
     final Runnable r = new Runnable() {
         public void run() {
             TextView myTextView = (TextView) findViewById(R.id.secondsText);
-            myTextView.setText("Sekundi:\n" + f--);
-            myTextView.postDelayed(this, 1000);
+
+            f = (float) (f - 0.1);
+
+            if (f < 0) {
+                f = (float) 59.9;
+                TextView myTextView1 = (TextView) findViewById(R.id.minutesText);
+                g--;
+                myTextView1.setText("Minuta:\n"+  g);
+
+            }
+
+            myTextView.setText(String.format( "Sekundi:\n%.1f",  f ));
+            myTextView.postDelayed(this, 100);
         }
     };
 
@@ -49,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         String year = editText.getText().toString();
         Integer yearInt = Integer.parseInt(year);
         TextView answer= (TextView) findViewById(R.id.answerText);
+        TextView textLeft= (TextView) findViewById(R.id.textLeft);
+        TextView answerYears= (TextView) findViewById(R.id.yearsText);
         TextView answerMonths= (TextView) findViewById(R.id.monthsText);
         TextView answerDays= (TextView) findViewById(R.id.daysText);
         TextView answerHours= (TextView) findViewById(R.id.hoursText);
@@ -69,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar calendar1 = Calendar.getInstance();
         Calendar calendar2 = Calendar.getInstance();
+        Calendar calendar3 = Calendar.getInstance();
         calendar1.set(yearInt, spinner_pos1,spinner_pos+1, 0, 0, 0);
         calendar2.getTime();
         long milsecs1= calendar1.getTimeInMillis();
@@ -93,19 +108,39 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat ft1 =
                 new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
 
+        int left = (int)star[2] % 10;
+
+        left = 10 - left;
+
+        calendar3.set(yearInt + left + (int)star[2], spinner_pos1,spinner_pos+1, 0, 0, 0);
+
+        long xmilsecs1= calendar2.getTimeInMillis();
+        long xmilsecs2 = calendar3.getTimeInMillis();
+        long xdiff = xmilsecs2 - xmilsecs1;
+        long xdsecs = xdiff / 1000%60;
+        long xdminutes = xdiff / (60 * 1000)%60;
+        long xdhours = xdiff / (60 * 60 * 1000)%24;
+        long xddays = xdiff / (24 * 60 * 60 * 1000)%30;
+        long xdmonths = xdiff / (30L * 24 * 60 * 60 * 1000)%12;
+        long xdyears = xdiff / (12L * 30L * 24 * 60 * 60 * 1000);
+
+
 
         answer.setText(/*ft.format(date1) +ft1.format(date2)+ */"Star si " + star[2] + " godina, " +  star[1] + " mjeseci i " + star[0] + " dana.");
+        textLeft.setText("Do tvog " + (left + (int)star[2]) + ". rodjendana ti je ostalo jos:");
 
-        answerMonths.setText("Mjeseci:\n" + dmonths);
-        answerDays.setText("Dana:\n" +ddays);
-        answerHours.setText("Sati:\n" +dhours);
-        answerMinutes.setText("Minuta:\n" +dminutes);
-        answerSeconds.setText("Sekundi:\n" + dsecs);
+        answerYears.setText("Godina:\n" + xdyears);
+        answerMonths.setText("Mjeseci:\n" + xdmonths);
+        answerDays.setText("Dana:\n" +xddays);
+        answerHours.setText("Sati:\n" +xdhours);
+        answerMinutes.setText("Minuta:\n" +xdminutes);
+        answerSeconds.setText("Sekundi:\n" + xdsecs);
 
-        f = dsecs;
+        f = xdsecs;
+        g = xdminutes;
         TextView myTextView = (TextView) findViewById(R.id.secondsText);
         myTextView.removeCallbacks(r);
-        myTextView.postDelayed(r, 1000);
+        myTextView.postDelayed(r, 100);
     }
 
     public static long[] differenceBetweenDates(Date fromDate, Date toDate) {
