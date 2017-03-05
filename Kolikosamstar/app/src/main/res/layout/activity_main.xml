@@ -29,8 +29,7 @@
         android:layout_alignStart="@+id/textview_question"
         android:textAlignment="center"
         android:entries="@array/days_array"
-        android:layout_alignRight="@+id/textview_question"
-        android:layout_alignEnd="@+id/textview_question" />
+        android:layout_toStartOf="@+id/daysText" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -100,71 +99,27 @@
         android:onClick="calculateAge" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/secondsText"
-        android:textAlignment="center"
-        android:layout_alignBaseline="@+id/minutesText"
-        android:layout_alignBottom="@+id/minutesText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/daysText"
-        android:textAlignment="center"
-        android:layout_alignBaseline="@+id/monthsText"
-        android:layout_alignBottom="@+id/monthsText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/yearsText"
-        android:textAlignment="center"
-        android:layout_alignBaseline="@+id/monthsText"
-        android:layout_alignBottom="@+id/monthsText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/minutesText"
         android:textAlignment="center"
         android:layout_below="@+id/monthsText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hoursText"
-        android:textAlignment="center"
-        android:layout_alignBaseline="@+id/minutesText"
-        android:layout_alignBottom="@+id/minutesText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Carpe diem!"
+        android:text="Tempus fugit. Carpe diem!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView3"
+        android:id="@+id/textSeizeTheDay"
         android:textSize="24sp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -178,27 +133,69 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/secondsText"
+        android:layout_alignBaseline="@+id/minutesText"
+        android:layout_alignBottom="@+id/minutesText"
+        android:layout_toEndOf="@+id/textview_question"
+        android:layout_toRightOf="@+id/textview_question"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/daysText"
+        android:layout_alignBaseline="@+id/monthsText"
+        android:layout_alignBottom="@+id/monthsText"
+        android:layout_alignLeft="@+id/secondsText"
+        android:layout_alignStart="@+id/secondsText"
+        android:textAlignment="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="15dp" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/monthsText"
         android:textAlignment="center"
-        android:layout_marginTop="29dp"
         android:layout_below="@+id/textLeft"
         android:layout_alignLeft="@+id/minutesText"
-        android:layout_alignStart="@+id/minutesText" />
+        android:layout_alignStart="@+id/minutesText"
+        android:paddingBottom="10dp"
+        android:paddingTop="15dp" />
 
     <TextView
-        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textLeft"
         android:textAlignment="center"
         android:textSize="16sp"
         android:layout_below="@+id/answerText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:paddingTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yearsText"
+        android:textAlignment="center"
+        android:layout_below="@+id/textLeft"
+        android:layout_toLeftOf="@+id/edittext_year"
+        android:layout_toStartOf="@+id/edittext_year"
+        android:paddingBottom="10dp"
+        android:paddingTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hoursText"
+        android:textAlignment="center"
+        android:layout_below="@+id/yearsText"
+        android:layout_toRightOf="@+id/yearsText"
+        android:layout_toEndOf="@+id/yearsText" />
 
 </RelativeLayout>

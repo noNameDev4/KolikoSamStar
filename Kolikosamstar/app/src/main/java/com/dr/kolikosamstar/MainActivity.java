@@ -18,25 +18,25 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static float f = 0;
-    private static long g = 0;
+    private static float seconds = 0;
+    private static long minutes = 0;
 
     final Runnable r = new Runnable() {
         public void run() {
-            TextView myTextView = (TextView) findViewById(R.id.secondsText);
+            TextView textSeconds = (TextView) findViewById(R.id.secondsText);
 
-            f = (float) (f - 0.1);
+            seconds = (float) (seconds - 0.1);
 
-            if (f < 0) {
-                f = (float) 59.9;
-                TextView myTextView1 = (TextView) findViewById(R.id.minutesText);
-                g--;
-                myTextView1.setText("Minuta:\n"+  g);
+            if (seconds < 0) {
+                seconds = (float) 59.9;
+                TextView textMinutes = (TextView) findViewById(R.id.minutesText);
+                minutes--;
+                textMinutes.setText("Minuta:\n"+ minutes);
 
             }
 
-            myTextView.setText(String.format( "Sekundi:\n%.1f",  f ));
-            myTextView.postDelayed(this, 100);
+            textSeconds.setText(String.format( "Sekundi:\n%.1f", seconds));
+            textSeconds.postDelayed(this, 100);
         }
     };
 
@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-       // TextView myTextView = (TextView) findViewById(R.id.secondsText);
-       // myTextView.postDelayed(r, 1000);
     }
 
     /** Called when the user clicks the Izracunaj button */
@@ -70,52 +67,46 @@ public class MainActivity extends AppCompatActivity {
         TextView answerSeconds= (TextView) findViewById(R.id.secondsText);
 
         Spinner spinnerDay = (Spinner) findViewById(R.id.spinner_days);
-       // String day = spinner.getSelectedItem().(); // Small, Medium, Large
 
-
-        int spinner_pos = spinnerDay.getSelectedItemPosition();
-       // String[] size_values = getResources().getStringArray(R.array.size_values);
-       // int size = Integer.valueOf(size_values[spinner_pos]);
+        int day = spinnerDay.getSelectedItemPosition() + 1;
         Spinner spinnerMonths = (Spinner) findViewById(R.id.spinner_months);
-        int spinner_pos1 = spinnerMonths.getSelectedItemPosition();
+        int month = spinnerMonths.getSelectedItemPosition();
 
-        //answer.setText("Rodjeni ste " + (spinner_pos+1) + ". " + (spinner_pos1+1) + ". " + year + ".");
+        Calendar calInput = Calendar.getInstance();
+        Calendar calToday = Calendar.getInstance();
+        Calendar calFuture = Calendar.getInstance();
+        calInput.set(yearInt, month, day, 0, 0, 0);
+        calToday.getTime();
 
-        Calendar calendar1 = Calendar.getInstance();
-        Calendar calendar2 = Calendar.getInstance();
-        Calendar calendar3 = Calendar.getInstance();
-        calendar1.set(yearInt, spinner_pos1,spinner_pos+1, 0, 0, 0);
-        calendar2.getTime();
-        long milsecs1= calendar1.getTimeInMillis();
-        long milsecs2 = calendar2.getTimeInMillis();
-        long diff = milsecs2 - milsecs1;
-        long dsecs = diff / 1000;
-        long dminutes = diff / (60 * 1000);
-        long dhours = diff / (60 * 60 * 1000);
-        long ddays = diff / (24 * 60 * 60 * 1000);
-        long dmonths = diff / (30L * 24 * 60 * 60 * 1000);
+//        long milsecs1= calInput.getTimeInMillis();
+//        long milsecs2 = calToday.getTimeInMillis();
+//        long diff = milsecs2 - milsecs1;
+//        long dsecs = diff / 1000;
+//        long dminutes = diff / (60 * 1000);
+//        long dhours = diff / (60 * 60 * 1000);
+//        long ddays = diff / (24 * 60 * 60 * 1000);
+//        long dmonths = diff / (30L * 24 * 60 * 60 * 1000);
+//        Date dateInput = calInput.getTime();
+//        Date dateToday = calToday.getTime();
+//        long diff1 = dateInput.getTime() - dateToday.getTime(); //this is going to give you the difference in milliseconds
+//        Date result = new Date(diff1);
+//        Format frmt = new SimpleDateFormat("yy MM dd HH:mm:ss");
+//        SimpleDateFormat ft =
+//                new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+//        SimpleDateFormat ft1 =
+//                new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+//
 
-        Date date1 = calendar1.getTime();
-        Date date2 = calendar2.getTime();
-        long diff1 = date1.getTime() - date2.getTime(); //this is going to give you the difference in milliseconds
+        Date dateInput = calInput.getTime();
+        Date dateToday = calToday.getTime();
+        long star[] = differenceBetweenDates(dateInput, dateToday);
 
-        Date result = new Date(diff1);
-        Format frmt = new SimpleDateFormat("yy MM dd HH:mm:ss");
+        int timeLeft = (int)star[2] % 10;
+        timeLeft = 10 - timeLeft;
+        calFuture.set(yearInt + timeLeft + (int)star[2], month,day, 0, 0, 0);
 
-        long star[] = differenceBetweenDates(date1, date2);
-        SimpleDateFormat ft =
-                new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
-        SimpleDateFormat ft1 =
-                new SimpleDateFormat ("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
-
-        int left = (int)star[2] % 10;
-
-        left = 10 - left;
-
-        calendar3.set(yearInt + left + (int)star[2], spinner_pos1,spinner_pos+1, 0, 0, 0);
-
-        long xmilsecs1= calendar2.getTimeInMillis();
-        long xmilsecs2 = calendar3.getTimeInMillis();
+        long xmilsecs1= calToday.getTimeInMillis();
+        long xmilsecs2 = calFuture.getTimeInMillis();
         long xdiff = xmilsecs2 - xmilsecs1;
         long xdsecs = xdiff / 1000%60;
         long xdminutes = xdiff / (60 * 1000)%60;
@@ -124,10 +115,8 @@ public class MainActivity extends AppCompatActivity {
         long xdmonths = xdiff / (30L * 24 * 60 * 60 * 1000)%12;
         long xdyears = xdiff / (12L * 30L * 24 * 60 * 60 * 1000);
 
-
-
-        answer.setText(/*ft.format(date1) +ft1.format(date2)+ */"Star si " + star[2] + " godina, " +  star[1] + " mjeseci i " + star[0] + " dana.");
-        textLeft.setText("Do tvog " + (left + (int)star[2]) + ". rodjendana ti je ostalo jos:");
+        answer.setText("Stari ste " + star[2] + " godina, " +  star[1] + " mjeseci i " + star[0] + " dana.");
+        textLeft.setText("Do Vašeg " + (timeLeft + (int)star[2]) + ". rođendana Vam je ostalo još:");
 
         answerYears.setText("Godina:\n" + xdyears);
         answerMonths.setText("Mjeseci:\n" + xdmonths);
@@ -136,11 +125,11 @@ public class MainActivity extends AppCompatActivity {
         answerMinutes.setText("Minuta:\n" +xdminutes);
         answerSeconds.setText("Sekundi:\n" + xdsecs);
 
-        f = xdsecs;
-        g = xdminutes;
-        TextView myTextView = (TextView) findViewById(R.id.secondsText);
-        myTextView.removeCallbacks(r);
-        myTextView.postDelayed(r, 100);
+        seconds = xdsecs;
+        minutes = xdminutes;
+
+        answerSeconds.removeCallbacks(r);
+        answerSeconds.postDelayed(r, 100);
     }
 
     public static long[] differenceBetweenDates(Date fromDate, Date toDate) {
