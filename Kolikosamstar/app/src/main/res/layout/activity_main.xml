@@ -25,7 +25,6 @@
         android:id="@+id/spinner_days"
         android:layout_marginTop="24dp"
         android:layout_below="@+id/textview_question"
-        android:layout_alignLeft="@+id/textview_question"
         android:layout_alignStart="@+id/textview_question"
         android:textAlignment="center"
         android:entries="@array/days_array"
@@ -51,7 +50,7 @@
         android:layout_alignBottom="@+id/spinner_days"
         android:layout_toLeftOf="@+id/spinner_days"
         android:id="@+id/textView_day"
-        android:layout_alignLeft="@+id/textview_month"
+        android:layout_alignLeft="@+id/textview_question"
         android:layout_alignStart="@+id/textview_month" />
 
     <EditText
@@ -136,23 +135,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/secondsText"
-        android:layout_alignBaseline="@+id/minutesText"
-        android:layout_alignBottom="@+id/minutesText"
-        android:layout_toEndOf="@+id/textview_question"
-        android:layout_toRightOf="@+id/textview_question"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_below="@+id/daysText"
+        android:layout_alignRight="@+id/daysText"
+        android:layout_centerInParent="false"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/daysText"
-        android:layout_alignBaseline="@+id/monthsText"
-        android:layout_alignBottom="@+id/monthsText"
-        android:layout_alignLeft="@+id/secondsText"
-        android:layout_alignStart="@+id/secondsText"
         android:textAlignment="center"
-        android:paddingBottom="10dp"
-        android:paddingTop="15dp" />
+        android:layout_below="@+id/textLeft"
+        android:layout_marginTop="20sp"
+        android:layout_alignRight="@+id/textview_question" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:textAlignment="center"
+        android:layout_alignLeft="@+id/edittext_year"
+        android:layout_below="@+id/textLeft"
+        android:layout_marginTop="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textAlignment="center"
+        android:layout_alignLeft="@+id/edittext_year"
+        android:layout_below="@+id/textLeft"
+        android:layout_marginTop="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:textAlignment="center"
+        android:layout_alignLeft="@+id/edittext_year"
+        android:layout_below="@+id/textLeft"
+        android:layout_marginTop="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textAlignment="center"
+        android:layout_alignLeft="@+id/edittext_year"
+        android:layout_below="@+id/textLeft"
+        android:layout_marginTop="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -160,10 +192,30 @@
         android:id="@+id/monthsText"
         android:textAlignment="center"
         android:layout_below="@+id/textLeft"
-        android:layout_alignLeft="@+id/minutesText"
         android:layout_alignStart="@+id/minutesText"
-        android:paddingBottom="10dp"
-        android:paddingTop="15dp" />
+        android:layout_marginTop="20sp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yearsText"
+        android:textAlignment="center"
+        android:layout_alignLeft="@+id/edittext_year"
+        android:layout_below="@+id/textLeft"
+        android:layout_marginTop="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hoursText"
+        android:textAlignment="center"
+        android:layout_alignLeft="@+id/edittext_year"
+        android:layout_below="@+id/yearsText"
+        android:layout_centerInParent="false"
+        android:layout_alignParentTop="false"
+        android:layout_centerVertical="false"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -171,31 +223,9 @@
         android:id="@+id/textLeft"
         android:textAlignment="center"
         android:textSize="16sp"
+        android:paddingTop="20dp"
         android:layout_below="@+id/answerText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:paddingTop="20dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/yearsText"
-        android:textAlignment="center"
-        android:layout_below="@+id/textLeft"
-        android:layout_toLeftOf="@+id/edittext_year"
-        android:layout_toStartOf="@+id/edittext_year"
-        android:paddingBottom="10dp"
-        android:paddingTop="15dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hoursText"
-        android:textAlignment="center"
-        android:layout_below="@+id/yearsText"
-        android:layout_toRightOf="@+id/yearsText"
-        android:layout_toEndOf="@+id/yearsText" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
