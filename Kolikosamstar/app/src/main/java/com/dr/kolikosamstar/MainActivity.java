@@ -20,22 +20,115 @@ public class MainActivity extends AppCompatActivity {
 
     private static float seconds = 0;
     private static long minutes = 0;
+    private static long hours = 0;
+    private static long days = 0;
+    private static long months = 0;
+    private static long years = 0;
 
     final Runnable r = new Runnable() {
         public void run() {
+
             TextView textSeconds = (TextView) findViewById(R.id.secondsText);
+            TextView textRodjendan = (TextView) findViewById(R.id.textRodjendan);
+            TextView textMinutes = (TextView) findViewById(R.id.minutesText);
+            TextView textHours = (TextView) findViewById(R.id.hoursText);
+            TextView textDays = (TextView) findViewById(R.id.daysText);
+            TextView textMonths = (TextView) findViewById(R.id.monthsText);
+            TextView textYears = (TextView) findViewById(R.id.yearsText);
 
             seconds = (float) (seconds - 0.1);
 
             if (seconds < 0) {
-                seconds = (float) 59.9;
-                TextView textMinutes = (TextView) findViewById(R.id.minutesText);
-                minutes--;
-                textMinutes.setText("Minuta:\n"+ minutes);
+                if (minutes == 0 && hours == 0 && days == 0 && months == 0 && years == 0) {
+                    textSeconds.setText("");
+                    textMinutes.setText("");
+                    textHours.setText("");
+                    textDays.setText("");
+                    textMonths.setText("");
+                    textYears.setText("");
+                    textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                } else {
+                    seconds = (float) 59.9;
+                    textSeconds.setText(String.format("Sekundi:\n%.1f", seconds));
+                    minutes--;
+                    if (minutes < 0) {
+                        if (hours == 0 && days == 0 && months == 0 && years == 0) {
+                            textSeconds.setText("");
+                            textMinutes.setText("");
+                            textHours.setText("");
+                            textDays.setText("");
+                            textMonths.setText("");
+                            textYears.setText("");
+                            textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                        } else {
+                                minutes = 59;
+                                textMinutes.setText("Minuta:\n" + minutes);
+                                hours--;
+                                if (hours < 0) {
+                                    hours = 23;
+                                    if (months == 0 && years == 0) {
+                                        textSeconds.setText("");
+                                        textMinutes.setText("");
+                                        textHours.setText("");
+                                        textDays.setText("");
+                                        textMonths.setText("");
+                                        textYears.setText("");
+                                        textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                                    } else {
+                                        hours = 23;
+                                        textHours.setText("Sati:\n" + hours);
+                                        days--;
+                                        if (days < 0) {
+                                            if (minutes == 0 && hours == 0 && days == 0 && months == 0 && years == 0) {
+                                                textSeconds.setText("");
+                                                textMinutes.setText("");
+                                                textHours.setText("");
+                                                textDays.setText("");
+                                                textMonths.setText("");
+                                                textYears.setText("");
+                                                textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                                            } else {
+                                                days = 29;
+                                                textDays.setText("Dana:\n" + days);
+                                                months--;
+                                                if (months < 0) {
+                                                    if (minutes == 0 && hours == 0 && days == 0 && months == 0 && years == 0) {
+                                                        textSeconds.setText("");
+                                                        textMinutes.setText("");
+                                                        textHours.setText("");
+                                                        textDays.setText("");
+                                                        textMonths.setText("");
+                                                        textYears.setText("");
+                                                        textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                                                    } else {
+                                                        months = 11;
+                                                        textMonths.setText("Mjeseci:\n" + months);
+                                                        years--;
+                                                        if (years < 0) {
+                                                            textSeconds.setText("");
+                                                            textMinutes.setText("");
+                                                            textHours.setText("");
+                                                            textDays.setText("");
+                                                            textMonths.setText("");
+                                                            textYears.setText("");
+                                                            textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                                                        } else {
+                                                            textYears.setText("Godina:\n" + years);
+
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
             }
 
-            textSeconds.setText(String.format( "Sekundi:\n%.1f", seconds));
             textSeconds.postDelayed(this, 100);
         }
     };
@@ -53,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+        TextView textRodjendan = (TextView) findViewById(R.id.textRodjendan);
+        textRodjendan.setText("");
 
         EditText editText = (EditText) findViewById(R.id.edittext_year);
         String year = editText.getText().toString();
@@ -127,6 +222,10 @@ public class MainActivity extends AppCompatActivity {
 
         seconds = xdsecs;
         minutes = xdminutes;
+        hours = xdhours;
+        days = xddays;
+        months = xdmonths;
+        years = xdyears;
 
         answerSeconds.removeCallbacks(r);
         answerSeconds.postDelayed(r, 100);
