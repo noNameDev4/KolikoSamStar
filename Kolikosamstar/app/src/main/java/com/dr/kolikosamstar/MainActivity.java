@@ -135,11 +135,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    /** Called when the user clicks the Izracunaj button */
+    /**
+     * Called when the user clicks the Izracunaj button
+     */
     public void calculateAge(View view) {
         //Hide keyboard
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
         TextView textRodjendan = (TextView) findViewById(R.id.textRodjendan);
@@ -148,14 +150,14 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edittext_year);
         String year = editText.getText().toString();
         Integer yearInt = Integer.parseInt(year);
-        TextView answer= (TextView) findViewById(R.id.answerText);
-        TextView textLeft= (TextView) findViewById(R.id.textLeft);
-        TextView answerYears= (TextView) findViewById(R.id.yearsText);
-        TextView answerMonths= (TextView) findViewById(R.id.monthsText);
-        TextView answerDays= (TextView) findViewById(R.id.daysText);
-        TextView answerHours= (TextView) findViewById(R.id.hoursText);
-        TextView answerMinutes= (TextView) findViewById(R.id.minutesText);
-        TextView answerSeconds= (TextView) findViewById(R.id.secondsText);
+        TextView answer = (TextView) findViewById(R.id.answerText);
+        TextView textLeft = (TextView) findViewById(R.id.textLeft);
+        TextView answerYears = (TextView) findViewById(R.id.yearsText);
+        TextView answerMonths = (TextView) findViewById(R.id.monthsText);
+        TextView answerDays = (TextView) findViewById(R.id.daysText);
+        TextView answerHours = (TextView) findViewById(R.id.hoursText);
+        TextView answerMinutes = (TextView) findViewById(R.id.minutesText);
+        TextView answerSeconds = (TextView) findViewById(R.id.secondsText);
 
         Spinner spinnerDay = (Spinner) findViewById(R.id.spinner_days);
 
@@ -191,29 +193,30 @@ public class MainActivity extends AppCompatActivity {
         Date dateInput = calInput.getTime();
         Date dateToday = calToday.getTime();
         long star[] = differenceBetweenDates(dateInput, dateToday);
+        String grammar[] = croatianGrammar(star);
 
-        int timeLeft = (int)star[2] % 10;
+        int timeLeft = (int) star[2] % 10;
         timeLeft = 10 - timeLeft;
-        calFuture.set(yearInt + timeLeft + (int)star[2], month,day, 0, 0, 0);
+        calFuture.set(yearInt + timeLeft + (int) star[2], month, day, 0, 0, 0);
 
-        long xmilsecs1= calToday.getTimeInMillis();
+        long xmilsecs1 = calToday.getTimeInMillis();
         long xmilsecs2 = calFuture.getTimeInMillis();
         long xdiff = xmilsecs2 - xmilsecs1;
-        long xdsecs = xdiff / 1000%60;
-        long xdminutes = xdiff / (60 * 1000)%60;
-        long xdhours = xdiff / (60 * 60 * 1000)%24;
-        long xddays = xdiff / (24 * 60 * 60 * 1000)%30;
-        long xdmonths = xdiff / (30L * 24 * 60 * 60 * 1000)%12;
+        long xdsecs = xdiff / 1000 % 60;
+        long xdminutes = xdiff / (60 * 1000) % 60;
+        long xdhours = xdiff / (60 * 60 * 1000) % 24;
+        long xddays = xdiff / (24 * 60 * 60 * 1000) % 30;
+        long xdmonths = xdiff / (30L * 24 * 60 * 60 * 1000) % 12;
         long xdyears = xdiff / (12L * 30L * 24 * 60 * 60 * 1000);
 
-        answer.setText("Stari ste " + star[2] + " godina, " +  star[1] + " mjeseci i " + star[0] + " dana.");
-        textLeft.setText("Do Vašeg " + (timeLeft + (int)star[2]) + ". rođendana Vam je ostalo još:");
+        answer.setText("Stari ste " + star[2] + grammar[2] + ", " + star[1] + grammar[1] + " i " + star[0] + grammar[0] + ".");
+        textLeft.setText("Do Vašeg " + (timeLeft + (int) star[2]) + ". rođendana Vam je ostalo još:");
 
         answerYears.setText("Godina:\n" + xdyears);
         answerMonths.setText("Mjeseci:\n" + xdmonths);
-        answerDays.setText("Dana:\n" +xddays);
-        answerHours.setText("Sati:\n" +xdhours);
-        answerMinutes.setText("Minuta:\n" +xdminutes);
+        answerDays.setText("Dana:\n" + xddays);
+        answerHours.setText("Sati:\n" + xdhours);
+        answerMinutes.setText("Minuta:\n" + xdminutes);
         answerSeconds.setText("Sekundi:\n" + xdsecs);
 
         seconds = xdsecs;
@@ -260,5 +263,47 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return new long[]{days, months, years};
+    }
+
+    public static String[] croatianGrammar(long old[]) {
+        String days, months, years;
+
+        if (Math.abs(old[0]) % 10 == 0) {
+            days = " dana";
+        } else if (Math.abs(old[0]) % 10 == 1 && Math.abs(old[0]) % 100 != 11) {
+            days = " dan";
+        } else if (Math.abs(old[0]) % 100 > 10 && Math.abs(old[0]) % 100 < 20) {
+            days = " dana";
+        } else if (Math.abs(old[0]) % 10 > 1 && Math.abs(old[0]) % 10 < 5) {
+            days = " dana";
+        } else {
+            days = " dana";
+        }
+
+        if (Math.abs(old[1]) % 10 == 0) {
+            months = " mjeseci";
+        } else if (Math.abs(old[1]) % 10 == 1 && Math.abs(old[1]) % 100 != 11) {
+            months = " mjesec";
+        } else if (Math.abs(old[1])%100>10 && Math.abs(old[1]) % 100 < 20) {
+            months=" mjeseci";
+        } else if (Math.abs (old[1]) % 10 > 1 && Math.abs (old[1]) % 10 < 5) {
+            months = " mjeseca";
+        } else {
+            months = " mjeseci";
+        }
+
+        if (Math.abs(old[2]) % 10 == 0) {
+            years = " godina";
+        } else if (Math.abs (old[2]) % 10 == 1 && Math.abs (old[2]) % 100 != 11) {
+            years = " godinu";
+        } else if (Math.abs (old[2]) % 100 > 10 && Math.abs (old[2]) % 100 < 20) {
+            years = " godina";
+        } else if (Math.abs (old[2]) % 10 > 1 && Math.abs (old[2]) % 10 < 5) {
+            years = " godine";
+        } else{
+            years = " godina";
+        }
+
+        return new String[] {days, months, years};
     }
 }
