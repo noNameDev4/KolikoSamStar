@@ -29,12 +29,13 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
 
             TextView textSeconds = (TextView) findViewById(R.id.secondsText);
-            TextView textRodjendan = (TextView) findViewById(R.id.textRodjendan);
             TextView textMinutes = (TextView) findViewById(R.id.minutesText);
             TextView textHours = (TextView) findViewById(R.id.hoursText);
             TextView textDays = (TextView) findViewById(R.id.daysText);
             TextView textMonths = (TextView) findViewById(R.id.monthsText);
             TextView textYears = (TextView) findViewById(R.id.yearsText);
+            TextView textLeft = (TextView) findViewById(R.id.textLeft);
+            TextView textRodjendan = (TextView) findViewById(R.id.answerText);
 
             seconds = (float) (seconds - 0.1);
 
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     textDays.setText("");
                     textMonths.setText("");
                     textYears.setText("");
+                    textLeft.setText("");
                     textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                 } else {
                     seconds = (float) 59.9;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                             textDays.setText("");
                             textMonths.setText("");
                             textYears.setText("");
+                            textLeft.setText("");
                             textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                         } else {
                             minutes = 59;
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                                     textDays.setText("");
                                     textMonths.setText("");
                                     textYears.setText("");
+                                    textLeft.setText("");
                                     textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                                 } else {
                                     hours = 23;
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                                             textHours.setText("");
                                             textDays.setText("");
                                             textMonths.setText("");
+                                            textLeft.setText("");
                                             textYears.setText("");
                                             textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                                         } else {
@@ -98,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                                                     textDays.setText("");
                                                     textMonths.setText("");
                                                     textYears.setText("");
+                                                    textLeft.setText("");
                                                     textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                                                 } else {
                                                     months = 11;
@@ -144,12 +150,7 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
-        TextView textRodjendan = (TextView) findViewById(R.id.textRodjendan);
-        textRodjendan.setText("");
 
-        EditText editText = (EditText) findViewById(R.id.edittext_year);
-        String year = editText.getText().toString();
-        Integer yearInt = Integer.parseInt(year);
         TextView answer = (TextView) findViewById(R.id.answerText);
         TextView textLeft = (TextView) findViewById(R.id.textLeft);
         TextView answerYears = (TextView) findViewById(R.id.yearsText);
@@ -159,8 +160,41 @@ public class MainActivity extends AppCompatActivity {
         TextView answerMinutes = (TextView) findViewById(R.id.minutesText);
         TextView answerSeconds = (TextView) findViewById(R.id.secondsText);
 
-        Spinner spinnerDay = (Spinner) findViewById(R.id.spinner_days);
+        EditText editText = (EditText) findViewById(R.id.edittext_year);
+        String year = editText.getText().toString();
 
+        if (year.isEmpty()) {
+            answerSeconds.removeCallbacks(r);
+            answerSeconds.setText("");
+            answerMinutes.setText("");
+            answerHours.setText("");
+            answerDays.setText("");
+            answerMonths.setText("");
+            answerYears.setText("");
+            textLeft.setText("");
+            answer.setText("Upišite godinu rođenja.");
+            return;
+        }
+
+        Integer yearInt = Integer.parseInt(year);
+
+
+        if (yearInt < 1) {
+            answerSeconds.removeCallbacks(r);
+            answerSeconds.setText("");
+            answerMinutes.setText("");
+            answerHours.setText("");
+            answerDays.setText("");
+            answerMonths.setText("");
+            answerYears.setText("");
+            textLeft.setText("");
+            answer.setText("Unijeli ste nevažeći datum. Unestite datum izmedju 1.1.1. i danas.");
+            return;
+        } else {
+            answer.setText("");
+        }
+
+        Spinner spinnerDay = (Spinner) findViewById(R.id.spinner_days);
         int day = spinnerDay.getSelectedItemPosition() + 1;
         Spinner spinnerMonths = (Spinner) findViewById(R.id.spinner_months);
         int month = spinnerMonths.getSelectedItemPosition();
@@ -170,6 +204,25 @@ public class MainActivity extends AppCompatActivity {
         Calendar calFuture = Calendar.getInstance();
         calInput.set(yearInt, month, day, 0, 0, 0);
         calToday.getTime();
+
+        long xmilsecsToday = calToday.getTimeInMillis();
+        long xmilsecsInput = calInput.getTimeInMillis();
+        long xdiffValidityCheck = xmilsecsToday - xmilsecsInput;
+
+        if (xdiffValidityCheck <= 0) {
+            answerSeconds.removeCallbacks(r);
+            answerSeconds.setText("");
+            answerMinutes.setText("");
+            answerHours.setText("");
+            answerDays.setText("");
+            answerMonths.setText("");
+            answerYears.setText("");
+            textLeft.setText("");
+            answer.setText("Unijeli ste nevažeći datum. Unestite datum izmedju 1.1.1. i danas.");
+            return;
+        } else {
+            answer.setText("");
+        }
 
 //        long milsecs1= calInput.getTimeInMillis();
 //        long milsecs2 = calToday.getTimeInMillis();
