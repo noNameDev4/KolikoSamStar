@@ -159,7 +159,6 @@
         android:id="@+id/monthsText"
         android:textAlignment="center"
         android:layout_below="@+id/textLeft"
-        android:layout_alignStart="@+id/minutesText"
         android:layout_marginTop="20sp"
         android:layout_centerHorizontal="true" />
 
