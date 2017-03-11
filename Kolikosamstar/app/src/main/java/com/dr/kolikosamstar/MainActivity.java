@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
         long xdmonths = xdiff / (30L * 24 * 60 * 60 * 1000) % 12;
         long xdyears = xdiff / (12L * 30L * 24 * 60 * 60 * 1000);
 
-        answer.setText("Stari ste " + star[2] + grammar[2] + ", " + star[1] + grammar[1] + " i " + star[0] + grammar[0] + ".");
+        answer.setText("Imate " + star[2] + grammar[2] + ", " + star[1] + grammar[1] + " i " + star[0] + grammar[0] + ".");
         textLeft.setText("Do Vašeg " + (timeLeft + (int) star[2]) + ". rođendana Vam je ostalo još:");
 
         answerYears.setText("Godina:\n" + xdyears);
