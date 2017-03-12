@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     textMonths.setText("");
                     textYears.setText("");
                     textLeft.setText("");
-                    textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                    textRodjendan.setText("Čestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                 } else {
                     seconds = (float) 59.9;
                     textSeconds.setText(String.format("Sekundi:\n%.1f", seconds));
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                             textMonths.setText("");
                             textYears.setText("");
                             textLeft.setText("");
-                            textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                            textRodjendan.setText("Čestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                         } else {
                             minutes = 59;
                             textMinutes.setText("Minuta:\n" + minutes);
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                                     textMonths.setText("");
                                     textYears.setText("");
                                     textLeft.setText("");
-                                    textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                                    textRodjendan.setText("Čestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                                 } else {
                                     hours = 23;
                                     textHours.setText("Sati:\n" + hours);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                                             textMonths.setText("");
                                             textLeft.setText("");
                                             textYears.setText("");
-                                            textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                                            textRodjendan.setText("Čestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                                         } else {
                                             days = 29;
                                             textDays.setText("Dana:\n" + days);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                                                     textMonths.setText("");
                                                     textYears.setText("");
                                                     textLeft.setText("");
-                                                    textRodjendan.setText("Cestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
+                                                    textRodjendan.setText("Čestitke!!! Upravo ste ušli u novo desetljeće svog života!!!");
                                                 } else {
                                                     months = 11;
                                                     textMonths.setText("Mjeseci:\n" + months);
@@ -175,9 +175,35 @@ public class MainActivity extends AppCompatActivity {
             answer.setText("Upišite godinu rođenja.");
             return;
         }
+        Integer yearInt;
 
-        Integer yearInt = Integer.parseInt(year);
+        try {
+            yearInt = Integer.parseInt(year);
+        } catch(NumberFormatException e) {
+            answerSeconds.removeCallbacks(r);
+            answerSeconds.setText("");
+            answerMinutes.setText("");
+            answerHours.setText("");
+            answerDays.setText("");
+            answerMonths.setText("");
+            answerYears.setText("");
+            textLeft.setText("");
+            answer.setText("Upišite ispravan broj za godinu rođenja.");
+            return;
+        } catch(NullPointerException e) {
+            answerSeconds.removeCallbacks(r);
+            answerSeconds.setText("");
+            answerMinutes.setText("");
+            answerHours.setText("");
+            answerDays.setText("");
+            answerMonths.setText("");
+            answerYears.setText("");
+            textLeft.setText("");
+            answer.setText("Upišite ispravan broj za godinu rođenja.");
+            return;
+        }
 
+        answer.setText("");
 
         if (yearInt < 1) {
             answerSeconds.removeCallbacks(r);
@@ -188,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             answerMonths.setText("");
             answerYears.setText("");
             textLeft.setText("");
-            answer.setText("Unijeli ste nevažeći datum. Unestite datum izmedju 1.1.1. i danas.");
+            answer.setText("Unijeli ste nevažeći datum. Upišite datum između 1.1.1. i danas.");
             return;
         } else {
             answer.setText("");
@@ -218,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             answerMonths.setText("");
             answerYears.setText("");
             textLeft.setText("");
-            answer.setText("Unijeli ste nevažeći datum. Unestite datum izmedju 1.1.1. i danas.");
+            answer.setText("Unijeli ste nevažeći datum. Unesite datum između 1.1.1. i danas.");
             return;
         } else {
             answer.setText("");
